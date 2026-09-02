@@ -1,6 +1,6 @@
 {
   "name": "@capslane/mcp-server",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "MCP server for the Capslane YouTube transcript API",
   "mcpName": "io.github.WebbaLuca/capslane",
   "type": "module",
@@ -30,6 +30,7 @@
     "@modelcontextprotocol/sdk": "1.30.0",
     "zod": "3.25.76"
   },
+  "devDependencies": { "typescript": "5.9.3" },
   "publishConfig": {
     "access": "public",
     "provenance": true
