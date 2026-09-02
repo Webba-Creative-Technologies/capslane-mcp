@@ -1,0 +1,49 @@
+{
+  "name": "@capslane/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for the Capslane YouTube transcript API",
+  "mcpName": "io.github.WebbaLuca/capslane",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "capslane-mcp": "./dist/stdio.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@capslane/sdk": "github:WebbaLuca/capslane-js#v0.1.0",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "zod": "3.25.76"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WebbaLuca/capslane-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "youtube",
+    "transcript",
+    "captions",
+    "chatgpt",
+    "claude"
+  ]
+}
