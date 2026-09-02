@@ -9,7 +9,7 @@ Retrieve YouTube transcripts from ChatGPT, Claude, Cursor and other MCP clients 
   "mcpServers": {
     "capslane": {
       "command": "npx",
-      "args": ["-y", "@capslane/mcp-server"],
+      "args": ["--yes", "--package", "github:WebbaLuca/capslane-mcp#v0.1.3", "capslane-mcp"],
       "env": { "CAPSLANE_API_KEY": "YOUR_API_KEY" }
     }
   }
