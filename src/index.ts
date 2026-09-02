@@ -1,4 +1,4 @@
-import { CapslaneClient, CapslaneError, type TranscriptJob } from '@capslane/sdk'
+import { CapslaneClient, CapslaneError, type TranscriptJob } from '@webba_tech/capslane'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 
@@ -10,13 +10,13 @@ export interface CapslaneMcpOptions {
 
 export function createCapslaneMcpServer(options: CapslaneMcpOptions): McpServer {
   const client = new CapslaneClient(options)
-  const server = new McpServer({ name: 'capslane', version: '0.1.0' }, {
-    instructions: 'Use Capslane to retrieve timestamped transcripts from public YouTube videos. Never claim a transcript exists until a tool returns it. Preserve requestId when reporting failures.',
+  const server = new McpServer({ name: 'capslane', version: '0.1.3' }, {
+    instructions: 'Use Capslane to retrieve timestamped transcripts from public YouTube videos. Only report a transcript after a tool returns it. Keep the request ID when reporting an error.',
   })
 
   server.registerTool('get_youtube_transcript', {
     title: 'Get YouTube transcript',
-    description: 'Retrieve native YouTube captions or start and optionally wait for generated transcription when captions are missing.',
+    description: 'Retrieve existing YouTube captions or start and optionally wait for a generated transcript.',
     inputSchema: {
       url: z.string().min(1).describe('Public YouTube URL or 11-character video ID'),
       lang: z.string().min(2).max(12).optional().describe('Preferred ISO language code'),
@@ -37,7 +37,7 @@ export function createCapslaneMcpServer(options: CapslaneMcpOptions): McpServer 
 
   server.registerTool('get_transcript_status', {
     title: 'Get transcript job status',
-    description: 'Return the current state of a Capslane generated transcript job.',
+    description: 'Return the current state of a generated transcript job.',
     inputSchema: { jobId: z.string().regex(/^job_[0-9a-f-]{36}$/u).describe('Job identifier returned by get_youtube_transcript') },
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
   }, async ({ jobId }) => {
@@ -50,7 +50,7 @@ export function createCapslaneMcpServer(options: CapslaneMcpOptions): McpServer 
 
   server.registerTool('list_available_languages', {
     title: 'List transcript languages',
-    description: 'Retrieve a native transcript and return the caption languages Capslane observed for the public YouTube video. This consumes one transcript request.',
+    description: 'Return the caption languages observed for a public YouTube video. This consumes one transcript request.',
     inputSchema: { url: z.string().min(1).describe('Public YouTube URL or 11-character video ID') },
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
   }, async ({ url }) => {
