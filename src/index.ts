@@ -10,7 +10,7 @@ export interface CapslaneMcpOptions {
 
 export function createCapslaneMcpServer(options: CapslaneMcpOptions): McpServer {
   const client = new CapslaneClient(options)
-  const server = new McpServer({ name: 'capslane', version: '0.1.3' }, {
+  const server = new McpServer({ name: 'capslane', version: '0.1.4' }, {
     instructions: 'Use Capslane to retrieve timestamped transcripts from public YouTube videos. Only report a transcript after a tool returns it. Keep the request ID when reporting an error.',
   })
 
