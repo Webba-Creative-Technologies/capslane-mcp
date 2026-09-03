@@ -78,7 +78,7 @@ Create a dedicated API key for each MCP client. Keep keys out of prompts, commit
 - [MCP documentation](https://capslane.com/integrations/mcp)
 - [API reference](https://capslane.com/api-reference)
 - [Dashboard](https://capslane.com/dashboard)
-- [GitHub](https://github.com/WebbaLuca/capslane-mcp)
+- [GitHub](https://github.com/Webba-Creative-Technologies/capslane-mcp)
 
 ## License
 

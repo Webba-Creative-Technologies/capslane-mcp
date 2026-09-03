@@ -1,8 +1,8 @@
 {
   "name": "@webba_tech/capslane-mcp",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "MCP server for retrieving timestamped YouTube transcripts through Capslane.",
-  "mcpName": "io.github.WebbaLuca/capslane",
+  "mcpName": "io.github.Webba-Creative-Technologies/capslane",
   "type": "module",
   "license": "MIT",
   "bin": {
@@ -41,7 +41,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WebbaLuca/capslane-mcp.git"
+    "url": "git+https://github.com/Webba-Creative-Technologies/capslane-mcp.git"
   },
   "author": "Webba Creative Technologies",
   "engines": {

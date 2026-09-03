@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.WebbaLuca/capslane",
+  "name": "io.github.Webba-Creative-Technologies/capslane",
   "description": "Retrieve existing or generated YouTube transcripts with timestamps through Capslane.",
   "repository": {
-    "url": "https://github.com/WebbaLuca/capslane-mcp",
+    "url": "https://github.com/Webba-Creative-Technologies/capslane-mcp",
     "source": "github"
   },
-  "version": "0.1.4",
+  "version": "0.1.5",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@webba_tech/capslane-mcp",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         {
