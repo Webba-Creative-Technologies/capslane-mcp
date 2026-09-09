@@ -130,13 +130,13 @@ Capslane checks the cache before applying mode. A cached native or generated tra
 
 ## Generated transcripts
 
-Set waitForCompletion to false for an interactive assistant. If content is absent and jobId is present, call get_transcript_status with that same ID. Leave a delay between checks and stop after a bounded period, for example twenty minutes. Stop immediately on content, failed or cancelled. Submitting the video again consumes another transcript request.
+Set waitForCompletion to false for an interactive assistant. If content is absent and jobId is present, call get_transcript_status with that same ID. Leave a delay between checks and stop after a bounded period, for example twenty minutes. Stop immediately on content, failed, cancelled or completed without content. The last case can mean the stored result has expired. Submitting the video again consumes another transcript request.
 
 ```text
-Use Capslane to retrieve this public YouTube video: VIDEO_URL. I allow audio generation if captions are unavailable. Submit once with mode=auto, text=false and waitForCompletion=false. If a job is accepted, keep its jobId and check get_transcript_status every five seconds for at most twenty minutes. Stop on content, failed or cancelled. Keep the jobId if waiting ends. Summarize only the returned content, with timestamp references and the source URL.
+Use Capslane to retrieve this public YouTube video: VIDEO_URL. I allow audio generation if captions are unavailable. Submit once with mode=auto, text=false and waitForCompletion=false. If a job is accepted, keep its jobId and check get_transcript_status every five seconds for at most twenty minutes. Stop on content, failed, cancelled or completed without content. Keep the jobId if waiting ends. Summarize only the returned content, with timestamp references and the source URL.
 ```
 
-The defaults remain `mode=auto`, `text=false` and `waitForCompletion=true`. Set `waitForCompletion=false` explicitly in an interactive client. Ending the wait does not cancel the server job. If waiting inside version 0.1.6 fails after acceptance, the tool error retains `jobId` so the same job can be checked again.
+The defaults remain `mode=auto`, `text=false` and `waitForCompletion=true`. Set `waitForCompletion=false` explicitly in an interactive client. Ending the wait does not cancel the server job. If waiting inside version 0.1.7 fails after acceptance, the tool error retains `jobId` so the same job can be checked again.
 
 Offsets and durations are in milliseconds. text=true returns a string for an immediate response, but completed jobs return segments. Join those segments locally if you need plain text. A completed status without content is not a usable transcript.
 
@@ -164,7 +164,7 @@ Use Node.js 20 or later and a client that supports this configuration format. Re
       "args": [
         "--yes",
         "--package",
-        "@webba_tech/capslane-mcp@0.1.6",
+        "@webba_tech/capslane-mcp@0.1.7",
         "capslane-mcp"
       ],
       "env": {

@@ -1,6 +1,6 @@
 {
   "name": "@webba_tech/capslane-mcp",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "MCP server for retrieving timestamped YouTube transcripts through Capslane.",
   "mcpName": "io.github.Webba-Creative-Technologies/capslane",
   "type": "module",
@@ -26,11 +26,14 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@webba_tech/capslane": "0.1.2",
+    "@webba_tech/capslane": "0.1.3",
     "@modelcontextprotocol/sdk": "1.30.0",
     "zod": "3.25.76"
   },
-  "devDependencies": { "@types/node": "22.18.6", "typescript": "5.9.3" },
+  "devDependencies": {
+    "@types/node": "22.18.6",
+    "typescript": "5.9.3"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -40,7 +43,9 @@
     "url": "git+https://github.com/Webba-Creative-Technologies/capslane-mcp.git"
   },
   "author": "Webba Creative Technologies",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "keywords": [
     "mcp",
     "youtube",

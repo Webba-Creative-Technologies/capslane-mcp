@@ -21,7 +21,10 @@ async function connect(t, fetcher) {
 test('catalog exposes quota effects and keeps credentials out of tool inputs', async (t) => {
   const client = await connect(t, async () => { throw new Error('Catalog must not call the API') })
   const { tools } = await client.listTools()
-  assert.equal(client.getServerVersion().version, '0.1.6')
+  assert.equal(client.getServerVersion().version, '0.1.7')
+  assert.match(client.getInstructions(), /npx -y @webba_tech\/capslane-mcp/u)
+  assert.match(client.getInstructions(), /await durable storage/u)
+  assert.match(client.getInstructions(), /completed without content/u)
   for (const tool of tools) {
     assert.equal(tool.annotations.readOnlyHint, tool.name === 'get_transcript_status')
     assert.equal(tool.annotations.idempotentHint, tool.name === 'get_transcript_status')
@@ -29,6 +32,28 @@ test('catalog exposes quota effects and keeps credentials out of tool inputs', a
     assert.ok(!Object.hasOwn(tool.inputSchema.properties, 'apiKey'))
   }
   assert.equal(tools[0].inputSchema.properties.waitForCompletion.default, true)
+})
+
+test('expired blocking jobs stop and failed status reads preserve the saved ID', async (t) => {
+  let calls = 0
+  const client = await connect(t, async () => {
+    calls++
+    if (calls === 1) return json({ jobId, status: 'queued', requestId: 'req_accepted' }, 202)
+    if (calls === 2) return json({ jobId, status: 'completed', requestId: 'req_expired' })
+    return json({ error: 'upstream_unavailable', requestId: 'req_http' }, 503)
+  })
+  const expired = await client.callTool({ name: 'get_youtube_transcript', arguments: { url: 'dQw4w9WgXcQ' } })
+  assert.equal(expired.isError, true)
+  assert.equal(value(expired).error, 'transcript_expired')
+  assert.equal(value(expired).status, 410)
+  assert.equal(value(expired).jobId, jobId)
+  assert.equal(value(expired).requestId, 'req_expired')
+  assert.equal(calls, 2)
+  const failed = await client.callTool({ name: 'get_transcript_status', arguments: { jobId } })
+  assert.equal(failed.isError, true)
+  assert.equal(value(failed).jobId, jobId)
+  assert.equal(value(failed).requestId, 'req_http')
+  assert.equal(calls, 3)
 })
 
 test('interactive workflow submits once and polls the same job to content', async (t) => {

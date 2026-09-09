@@ -30,7 +30,7 @@ node "SKILL_DIR/scripts/transcript.mjs" --job "job_550e8400-e29b-41d4-a716-44665
 
 The first command uses native mode. Use the second only when generation is authorized. The third resumes an existing job; replace its example ID with the actual returned ID. The helper prints JSON, defaults to one request and supports `--text`, `--lang`, `--mode`, `--wait` and `--timeout` in seconds, up to 1200. Run `--help` for syntax. It calls only `https://capslane.com`, uses a 45-second limit per request and polls every two seconds when waiting.
 
-Read `content` first, even when a response also has `jobId`. When content is absent, retain the accepted ID. With MCP, poll `get_transcript_status` for that same ID with a delay of at least two seconds and a deadline of at most twenty minutes. Stop on content, `failed` or `cancelled`. A completed state without content is not a usable transcript. Stop when the deadline expires and retain the ID for investigation. Never resubmit the video to check progress.
+Read `content` first, even when a response also has `jobId`. When content is absent, retain the accepted ID. With MCP, poll `get_transcript_status` for that same ID with a delay of at least two seconds and a deadline of at most twenty minutes. Stop on content, `failed`, `cancelled` or `completed` without content. A completed state without content can mean the stored result expired; further polling will not restore it. Stop when the deadline expires and retain the ID for investigation. Never resubmit the video to check progress.
 
 A timeout ends the local wait, not the server job. Report `jobId`, `requestId` and the error code when available. Resume the known job after a transient interruption. Do not loop on authentication, quota or terminal job errors. If a submission fails before returning an ID, do not assume no job was created.
 
@@ -44,4 +44,4 @@ If captions are unavailable and generation was not authorized, explain the resul
 
 ## Write an integration
 
-Read [the integration reference](references/integration.md) when implementing application code. Use the maintained JavaScript or Python SDK and its current documentation. Keep keys server-side, handle immediate content and asynchronous jobs, and use fixtures for tests instead of personal keys or a live video dependency.
+Read [the integration reference](references/integration.md) when implementing application code. Use the maintained JavaScript or Python SDK and its current documentation. For Node.js, reuse the maintained submission and resume module linked there. Await durable storage of an accepted job ID before polling, and return that ID if storage fails. Apply the same terminal-state checks when resuming a saved job. Keep keys server-side and use synthetic fixtures for tests.

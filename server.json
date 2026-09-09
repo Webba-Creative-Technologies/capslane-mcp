@@ -6,7 +6,7 @@
     "url": "https://github.com/Webba-Creative-Technologies/capslane-mcp",
     "source": "github"
   },
-  "version": "0.1.6",
+  "version": "0.1.7",
   "remotes": [
     {
       "type": "streamable-http",
@@ -20,7 +20,7 @@
     {
       "registryType": "npm",
       "identifier": "@webba_tech/capslane-mcp",
-      "version": "0.1.6",
+      "version": "0.1.7",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         {
