@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capslane YouTube Transcripts"
+  short_description: "Retrieve YouTube transcripts and preserve timestamps"
+  default_prompt: "Use $capslane-youtube-transcripts to retrieve this YouTube video's transcript and cite its timestamps."

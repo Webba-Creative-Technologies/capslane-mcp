@@ -2,6 +2,16 @@
 
 Retrieve timestamped transcripts from public YouTube videos in Claude Code, Codex, Cursor and other MCP clients. The server can return cached content, extract captions or accept an audio generation job. It does not summarize videos itself.
 
+## Install the transcript skill
+
+This repository also provides `capslane-youtube-transcripts`, a portable agent skill with transcript instructions and a standalone Node.js 22 HTTP helper. Install it in a project with the Skills CLI:
+
+```sh
+npx skills add Webba-Creative-Technologies/capslane-mcp --skill capslane-youtube-transcripts --agent codex
+```
+
+Replace `codex` with `claude-code` or `cursor` for those clients. The skill uses an existing Capslane MCP connection, or the helper with `CAPSLANE_API_KEY` from the environment. It does not configure credentials. See the [installation guide](https://capslane.com/integrations/agent-skill) and [complete skill folder](https://github.com/Webba-Creative-Technologies/capslane-mcp/tree/main/skills/capslane-youtube-transcripts). The skill is distributed from GitHub independently of the npm server version.
+
 ## Before connecting
 
 Create a Capslane workspace key in API Keys, then make CAPSLANE_API_KEY available to the process that launches your assistant. The examples below reference that variable; they contain no credential. Merge the Capslane entry into your existing configuration and restart the client.
