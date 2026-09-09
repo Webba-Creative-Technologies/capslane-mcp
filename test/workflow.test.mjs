@@ -21,7 +21,7 @@ async function connect(t, fetcher) {
 test('catalog exposes quota effects and keeps credentials out of tool inputs', async (t) => {
   const client = await connect(t, async () => { throw new Error('Catalog must not call the API') })
   const { tools } = await client.listTools()
-  assert.equal(client.getServerVersion().version, '0.1.7')
+  assert.equal(client.getServerVersion().version, '0.1.8')
   assert.match(client.getInstructions(), /npx -y @webba_tech\/capslane-mcp/u)
   assert.match(client.getInstructions(), /await durable storage/u)
   assert.match(client.getInstructions(), /completed without content/u)

@@ -136,9 +136,17 @@ Set waitForCompletion to false for an interactive assistant. If content is absen
 Use Capslane to retrieve this public YouTube video: VIDEO_URL. I allow audio generation if captions are unavailable. Submit once with mode=auto, text=false and waitForCompletion=false. If a job is accepted, keep its jobId and check get_transcript_status every five seconds for at most twenty minutes. Stop on content, failed, cancelled or completed without content. Keep the jobId if waiting ends. Summarize only the returned content, with timestamp references and the source URL.
 ```
 
-The defaults remain `mode=auto`, `text=false` and `waitForCompletion=true`. Set `waitForCompletion=false` explicitly in an interactive client. Ending the wait does not cancel the server job. If waiting inside version 0.1.7 fails after acceptance, the tool error retains `jobId` so the same job can be checked again.
+The defaults remain `mode=auto`, `text=false` and `waitForCompletion=true`. Set `waitForCompletion=false` explicitly in an interactive client. Ending the wait does not cancel the server job. If waiting inside version 0.1.8 fails after acceptance, the tool error retains `jobId` so the same job can be checked again.
 
-Offsets and durations are in milliseconds. text=true returns a string for an immediate response, but completed jobs return segments. Join those segments locally if you need plain text. A completed status without content is not a usable transcript.
+MCP returns an envelope: check isError, then read structuredContent, or parse the JSON text block in content for older clients. Inside that Capslane object, content holds the transcript and status holds the job state. There is no segments or state field. Check content before jobId. Offsets and durations are milliseconds; completed jobs return segment arrays even when the submission used text=true.
+
+## Complete MCP client
+
+The [runnable Node.js client](examples/import-transcript-mcp.mjs) connects through the official MCP SDK, saves each accepted job with its video URL and formats transcript.content into timestamped text. Install @webba_tech/capslane@0.1.4, @webba_tech/capslane-mcp@0.1.8 and @modelcontextprotocol/sdk@1.30.0. Set CAPSLANE_API_KEY and run the file with a YouTube URL. It uses native mode; change it to auto when generation is authorized.
+
+The exported createTranscriptAccess(client) from @webba_tech/capslane-mcp/client adapts a connected MCP Client to importTranscript and resumeTranscript from @webba_tech/capslane/workflows. Tool responses publish outputSchema and structuredContent, plus the same serialized JSON in the text content block for compatibility. The adapter checks isError before interpreting the Capslane body.
+
+The workflow returns { url, transcript, timestampedText }. It retains jobId on storage, transport and formatting errors. Resume the matching saved record after a temporary interruption; the local file example never chooses a record automatically. Use a database with records scoped to the tenant and video in a service. Status checks consume no additional transcript unit.
 
 ## Tools
 
@@ -164,7 +172,7 @@ Use Node.js 20 or later and a client that supports this configuration format. Re
       "args": [
         "--yes",
         "--package",
-        "@webba_tech/capslane-mcp@0.1.7",
+        "@webba_tech/capslane-mcp@0.1.8",
         "capslane-mcp"
       ],
       "env": {
