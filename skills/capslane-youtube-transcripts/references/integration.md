@@ -4,6 +4,8 @@ The public API base is `https://capslane.com`. Send `x-api-key` from your server
 
 For JavaScript and TypeScript, install `@webba_tech/capslane` and follow the [Node.js guide](https://capslane.com/guides/youtube-transcript-api-nodejs). For Python, install `capslane` and follow the [Python guide](https://capslane.com/guides/youtube-transcript-api-python). When Context7 is available, use `/webba-creative-technologies/capslane-js` or `/webba-creative-technologies/capslane-python`. Context7 supplies documentation; MCP and HTTP execute requests.
 
+For Node.js job recovery, `client.transcriptJob(jobId, signal)` takes an AbortSignal directly as its second argument. `client.waitForTranscript(jobId, { signal })` takes an options object. The [saved-job module](https://capslane.com/examples/resume-transcript.mjs) shows a complete loop with the published SDK. Read its [usage example](https://capslane.com/guides/youtube-transcript-api-nodejs#resume) when implementing resumption, and preserve the accepted job ID if the caller stops waiting.
+
 Submit `GET /v1/transcript` with `url`, an explicit `mode` and optional `lang` and `text`. The response is either HTTP 200 with `content`, or HTTP 202 with a `jobId`. Poll `GET /v1/transcript/{jobId}` with a delay and a shared deadline. A successful status request can describe a pending or failed job; check its body. Preserve an accepted job ID across timeouts and do not repeat submission to poll.
 
 Cache lookup precedes mode selection. `native` never starts generation, `auto` generates after missing captions, and `generate` starts audio transcription on a cache miss. `source` describes the actual transcript source. `text=true` affects immediate results; completed jobs return segments. Offsets and durations use milliseconds.

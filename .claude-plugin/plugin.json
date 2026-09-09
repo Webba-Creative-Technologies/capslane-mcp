@@ -1,6 +1,6 @@
 {
   "name": "capslane",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Retrieve YouTube transcripts with timestamps, follow generation jobs and cite video passages using the Capslane skill and authenticated MCP tools.",
   "author": { "name": "Webba Creative Technologies" },
   "homepage": "https://capslane.com/integrations/mcp#claude-code",
