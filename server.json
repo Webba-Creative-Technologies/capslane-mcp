@@ -6,12 +6,21 @@
     "url": "https://github.com/Webba-Creative-Technologies/capslane-mcp",
     "source": "github"
   },
-  "version": "0.1.5",
+  "version": "0.1.6",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://capslane.com/mcp",
+      "headers": [
+        { "name": "x-api-key", "description": "Capslane workspace API key", "isRequired": true, "isSecret": true }
+      ]
+    }
+  ],
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@webba_tech/capslane-mcp",
-      "version": "0.1.5",
+      "version": "0.1.6",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         {
