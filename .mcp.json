@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "capslane": {
+      "type": "http",
+      "url": "https://capslane.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${CAPSLANE_API_KEY}"
+      }
+    }
+  }
+}

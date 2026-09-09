@@ -22,6 +22,44 @@ The remote endpoint is `https://capslane.com/mcp`, using Streamable HTTP and `Au
 
 ## Claude Code
 
+### Install the plugin
+
+The Capslane plugin bundles the transcript skill and the remote MCP connection. Make CAPSLANE_API_KEY available in your terminal environment first, then run:
+
+```bash
+claude plugin marketplace add Webba-Creative-Technologies/capslane-mcp
+claude plugin install capslane@capslane --scope user
+```
+
+The user scope makes the plugin available across your projects. Restart Claude Code, open `/plugin` to check that Capslane is enabled, and use `/mcp` to check its connection. Review any permission request from your client. Invoke the skill directly with:
+
+```text
+/capslane:capslane-youtube-transcripts Retrieve https://www.youtube.com/watch?v=dQw4w9WgXcQ with native captions and timestamp citations.
+```
+
+Once enabled, Claude can load the skill for relevant tasks. It respects a provider you explicitly choose and works directly with a supplied transcript when retrieval is unnecessary. Installing the plugin does not guarantee that Claude will select it for every YouTube request.
+
+This repository hosts the Capslane marketplace. It is not a listing in Anthropic's official marketplace. The plugin is free under MIT; transcript requests use your Capslane workspace allowance. Its version is tracked in `.claude-plugin/plugin.json` independently of the npm MCP server version.
+
+Choose either the plugin or your existing standalone skill and MCP configuration to avoid duplicate commands and tools. The remote connection needs no local Node.js runtime. The bundled HTTP fallback needs Node.js 22 or later and reads the same environment variable.
+
+To update, refresh the marketplace and the plugin, then restart Claude Code:
+
+```bash
+claude plugin marketplace update capslane
+claude plugin update capslane@capslane
+```
+
+To remove the user installation:
+
+```bash
+claude plugin uninstall capslane@capslane --scope user
+```
+
+Removing the plugin does not revoke the workspace key. Revoke it in [API Keys](https://capslane.com/api-keys) if it is no longer needed. The [plugin documentation](https://code.claude.com/docs/en/discover-plugins) explains client controls, and the [marketplace reference](https://code.claude.com/docs/en/plugin-marketplaces) describes the distribution format.
+
+### Configure only MCP
+
 Merge this into `.mcp.json` in your project root. Restart Claude Code, review the project's MCP connection and check `/mcp`.
 
 ```json

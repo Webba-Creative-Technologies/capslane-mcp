@@ -1,0 +1,14 @@
+{
+  "name": "capslane",
+  "owner": { "name": "Webba Creative Technologies" },
+  "metadata": { "description": "Capslane tools for public YouTube transcripts." },
+  "plugins": [
+    {
+      "name": "capslane",
+      "source": "./",
+      "description": "YouTube transcripts with timestamps, bounded job polling and source citations.",
+      "category": "productivity",
+      "keywords": ["youtube", "transcript", "captions", "mcp"]
+    }
+  ]
+}
