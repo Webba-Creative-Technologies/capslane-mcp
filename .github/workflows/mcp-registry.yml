@@ -28,5 +28,18 @@ jobs:
           chmod +x /tmp/mcp-publisher
       - name: Authenticate with MCP registry
         run: /tmp/mcp-publisher login github-oidc
+      - name: Wait for npm version visibility
+        shell: bash
+        run: |
+          package=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          for attempt in {1..20}; do
+            if npm view "$package@$version" version --prefer-online --registry=https://registry.npmjs.org; then
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "The npm version is not visible yet; retry this workflow after propagation." >&2
+          exit 1
       - name: Publish MCP metadata
         run: /tmp/mcp-publisher publish
