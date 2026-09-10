@@ -1,7 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
   "projectTitle": "Capslane YouTube Transcript MCP Server",
-  "description": "Capslane MCP server for timestamped YouTube transcripts, native captions and asynchronous audio generation. Connect coding assistants and resume accepted jobs without resubmitting the video.",
+  "description": "Capslane MCP server for timestamped YouTube transcripts, native captions and asynchronous transcription from audio. Connect coding assistants and resume accepted jobs without resubmitting the video.",
   "branch": "main",
   "folders": [],
   "excludeFolders": [".github", ".claude-plugin", "src", "test", "tests", "dist", "node_modules", "_autodocs", "skills"],
