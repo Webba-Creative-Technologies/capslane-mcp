@@ -1,4 +1,4 @@
-# Capslane MCP server
+# Capslane YouTube transcript MCP server
 
 Retrieve timestamped transcripts from public YouTube videos in Claude Code, Codex, Cursor and other MCP clients. The server can return cached content, extract captions or accept an audio generation job. It does not summarize videos itself.
 
